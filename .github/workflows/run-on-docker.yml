@@ -32,7 +32,7 @@ jobs:
       - name: Verificar processos em execução
         run: |
           echo "Verificando processos em execução..."
-          ps aux
+          pgrep postgres
 
       - name: Esperar pelo PostgreSQL iniciar
         run: |
