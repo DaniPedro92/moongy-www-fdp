@@ -1,41 +1,30 @@
 name: Request input information
  
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  #push:
-  #  branches: [ "main" ]
-  #pull_request:
-  #  branches: [ "main" ]
- 
-  # Allows you to run this workflow manually from the Actions tab
- workflow_dispatch:
-   inputs:
-     mensagem:
-       type: string
-       description: Coloque aqui a mensagem
-       required: true
-     sql-command:  # Ensure this input is being provided
-       type: string
-       description: Coloque aqui SQL a ser executado
-       required: true
-     ambiente:
-       type: environment
-     nuvem:
-       type: choice
-       description: Escolha o SGBD para deploy
-       options:
-       - SqlServer
-       - Oracle
-       - Postgres
-       - MariaDB
-     agreement:
-       type: boolean
-       description: Concorda com os termos
+  workflow_dispatch:
+    inputs:
+      mensagem:
+        type: string
+        description: Coloque aqui a mensagem
+        required: true
+      sql-command:  # Verifique se está sendo fornecido corretamente
+        type: string
+        description: Coloque aqui SQL a ser executado
+        required: true
+      ambiente:
+        type: environment
+      nuvem:
+        type: choice
+        description: Escolha o SGBD para deploy
+        options:
+        - SqlServer
+        - Oracle
+        - Postgres
+        - MariaDB
+      agreement:
+        type: boolean
+        description: Concorda com os termos
 
-
- 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   teste-postgres-sql:
     if: ${{ github.event.inputs.nuvem == 'Postgres' }} 
@@ -53,3 +42,4 @@ jobs:
       repo-token: "hello"
     secrets:
       SSH_SECRET_KEY: ${{ secrets.SSH_SECRET_KEY }}
+
