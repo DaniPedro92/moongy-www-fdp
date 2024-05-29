@@ -26,27 +26,33 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Start PostgreSQL service
+      - name: Listar arquivos no contêiner
+        run: ls -all
+
+      - name: Verificar status do PostgreSQL
+        run: |
+          service postgresql status
+
+      - name: Iniciar serviço do PostgreSQL
         run: |
           service postgresql start
+          sleep 5  # Espera um pouco para garantir que o serviço inicie
 
-      - name: Wait for PostgreSQL to start
+      - name: Esperar pelo PostgreSQL iniciar
         run: |
           until pg_isready -h localhost; do
             echo "Waiting for PostgreSQL to start..."
             sleep 2
           done
 
-      - name: Check PostgreSQL logs
+      - name: Verificar logs do PostgreSQL
         run: |
           echo "PostgreSQL logs:"
           cat /var/log/postgresql/postgresql-16-main.log
 
-      - name: Run a one-line script inside the container
-        run: ls -all
-
-      - name: Run a multi-line script
+      - name: Executar postgres
         run: |
           cat /etc/postgresql/16/main/pg_hba.conf
           psql -U postgres -c '\l'
+
 
