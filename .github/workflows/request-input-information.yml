@@ -15,7 +15,7 @@ on:
        type: string
        description: Coloque aqui a mensagem
        required: true
-     sql-command:  # Add the missing sql-command input here
+     sql-command:  # Ensure this input is being provided
        type: string
        description: Coloque aqui SQL a ser executado
        required: true
