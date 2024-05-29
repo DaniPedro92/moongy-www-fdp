@@ -26,12 +26,21 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Start PostgreSQL service
+        run: |
+          service postgresql start
+
       - name: Wait for PostgreSQL to start
         run: |
-          until pg_isready; do
+          until pg_isready -h localhost; do
             echo "Waiting for PostgreSQL to start..."
             sleep 2
           done
+
+      - name: Check PostgreSQL logs
+        run: |
+          echo "PostgreSQL logs:"
+          cat /var/log/postgresql/postgresql-16-main.log
 
       - name: Run a one-line script inside the container
         run: ls -all
