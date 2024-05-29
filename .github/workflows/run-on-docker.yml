@@ -29,14 +29,10 @@ jobs:
       - name: Listar arquivos no contêiner
         run: ls -all
 
-      - name: Verificar status do PostgreSQL
+      - name: Verificar processos em execução
         run: |
-          service postgresql status
-
-      - name: Iniciar serviço do PostgreSQL
-        run: |
-          service postgresql start
-          sleep 5  # Espera um pouco para garantir que o serviço inicie
+          echo "Verificando processos em execução..."
+          ps aux
 
       - name: Esperar pelo PostgreSQL iniciar
         run: |
@@ -48,11 +44,12 @@ jobs:
       - name: Verificar logs do PostgreSQL
         run: |
           echo "PostgreSQL logs:"
-          cat /var/log/postgresql/postgresql-16-main.log
+          cat /var/lib/postgresql/data/log/postgresql.log
 
-      - name: Executar postgres
+      - name: Executar script multi-linhas
         run: |
-          cat /etc/postgresql/16/main/pg_hba.conf
+          cat /var/lib/postgresql/data/pg_hba.conf
           psql -U postgres -c '\l'
+
 
 
