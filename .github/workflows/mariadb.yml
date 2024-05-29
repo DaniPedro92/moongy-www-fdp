@@ -1,0 +1,28 @@
+name: MariaDB Workflow
+
+on:
+  workflow_call:
+    inputs:
+      config-path:
+        required: true
+        type: string
+      repo-token:
+        required: true
+        type: string
+      sql-command:
+        required: true
+        type: string
+    secrets:
+      SSH_SECRET_KEY:
+        required: true
+
+jobs:
+  run-sql:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display config path
+        run: echo ${{ inputs.config-path }}
+      - name: Display SQL command
+        run: echo ${{ inputs['sql-command'] }}
+      - name: Display secret
+        run: echo ${{ secrets.SSH_SECRET_KEY }}
