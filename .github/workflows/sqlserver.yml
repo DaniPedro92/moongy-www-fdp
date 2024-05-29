@@ -9,9 +9,6 @@ on:
       repo-token:
         required: true
         type: string
-      sql-command:
-        required: true
-        type: string
     secrets:
       SSH_SECRET_KEY:
         required: true
