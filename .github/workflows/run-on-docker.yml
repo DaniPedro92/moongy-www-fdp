@@ -29,10 +29,10 @@ jobs:
       - name: Listar arquivos no contêiner
         run: ls -all
 
-      - name: Verificar processos em execução
+      - name: Verificar status do PostgreSQL
         run: |
-          echo "Verificando processos em execução..."
-          pgrep postgres
+          echo "Verificando status do PostgreSQL..."
+          psql -U postgres -c "SELECT version();"
 
       - name: Esperar pelo PostgreSQL iniciar
         run: |
@@ -50,6 +50,7 @@ jobs:
         run: |
           cat /var/lib/postgresql/data/pg_hba.conf
           psql -U postgres -c '\l'
+
 
 
 
